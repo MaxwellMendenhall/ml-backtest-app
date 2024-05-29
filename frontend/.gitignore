@@ -1,0 +1,143 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+# Node modules
+node_modules/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Vite cache
+.vite
+dist/
+
+# Local env files
+.local/
+
+# Editor directories and files
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# MacOS files
+.DS_Store
+
+# Windows files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Linux files
+*~
+
+# TypeScript cache
+*.tsbuildinfo
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Stylelint cache
+.stylelintcache
+
+# Coveralls directory
+.coverage/
+
+# Output of 'npm pack'
+*.tgz
+
+# Yarn Integrity file
+.yarn-integrity
+
+# Parcel-bundler cache (if used)
+.cache/
+
+# Storybook files
+.storybook/
+*.story.js
+*.story.ts
+*.story.jsx
+*.story.tsx
+*.stories.js
+*.stories.ts
+*.stories.jsx
+*.stories.tsx
+
+# IntelliJ IDEA files
+.idea/
+
+# JetBrains Rider files
+.idea/
+*.iml
+
+# Svelte cache (if used)
+.svelte-kit/
+
+# Nuxt.js build / generate output
+.nuxt/
+output/
+
+# End-to-end test
+cypress/screenshots/
+cypress/videos/
+
+# FUSE generated files
+.fusebox/
+
+# Deployed functions and caches
+.vercel
+.now
+
+# Next.js build output
+.next/
+
+# Gatsby files
+.cache/
+public/
+
+# Vuepress build output
+.vuepress/dist
+
+# Heroku files
+*.db
+
+# Serverless directories
+.serverless/
+.webpack/
+
+# Quasar framework
+.quasar/
+

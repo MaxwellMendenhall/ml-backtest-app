@@ -1,0 +1,92 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+pip-log.txt
+pip-delete-this-directory.txt
+dist/
+build/
+*.egg-info/
+.eggs/
+
+# Install logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# pyenv
+.python-version
+
+# celery beat schedule file
+celerybeat-schedule
+
+# dotenv
+.env
+.env.*
+
+# virtualenv
+.venv
+venv/
+
+# Spyder project settings
+.spyderproject
+.spyproject
+
+# Rope project settings
+.ropeproject
+
+# mkdocs documentation
+/site
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pyre type checker
+.pyre/
+
+# pytype static type analyzer
+.pytype/
+
+# PyCharm
+.idea/
+.idea/*
+.idea/**/*
+.idea/*.*
+.idea/workspace.xml
+
+# VS Code
+.vscode/
+.vscode/*
+.vscode/**/*
+.vscode/*.*
+
+.models/
+models/
