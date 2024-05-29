@@ -1,7 +1,7 @@
 # ML-Backtest-Application
 ## Usage
 1) Make sure you have Docker desktop running on your machine, download [here](https://www.docker.com/products/docker-desktop/).
-2) Type the following command to clone the repo <pre>git clone https://github.com/MaxwellMendenhall/ML-Backtest-App.git</pre>
+2) Type the following command to clone the repo <pre>git clone https://github.com/MaxwellMendenhall/ml-backtest-app.git</pre>
 3) Type the following command to switch current working dir <pre>cd ml-backtest-app</pre> 
 4) Build & run the multi-container application <pre>docker-compose up --build</pre>
 5) Visit http://localhost:3000 on your machine to see the application up and running.
