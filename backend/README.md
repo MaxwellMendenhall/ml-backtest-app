@@ -1,22 +1,7 @@
-# Setup
+# Adding Stuff to Backend
 
-## Create a VENV 
-<pre>
-python -m venv venv
-</pre>
+You only need to modify the `config.py` file. **DO NOT CHANGE CODE** in the `app.py` file as it is already configured to work dynamically with the frontend. 
 
-## Activate
-After that, activate the venv.
-### Mac
-<pre>
-.\venv\Scripts\activate
-</pre>
-### Windows
-<pre>
-source venv/bin/activate
-</pre>
+To add custom strategies, update the mappings dictionary in `config.py` and define how you want them displayed on the frontend, all within the `config.py` file.
 
-## Deactivate Venv
-<pre>
-deactivate
-</pre>
+

@@ -1,3 +1,7 @@
+##########################################################################
+#############      DO NOT      CHANGE     CODE     HERE      #############
+##########################################################################
+
 from flask import Flask, request, jsonify, send_file
 from flask_cors import CORS # type: ignore
 import pandas as pd # type: ignore
@@ -8,9 +12,10 @@ import traceback
 import numpy as np # type: ignore
 from ml_backtest import Backtest, MachineLearning # type: ignore
 from ml_backtest.machine_learning import CandleStickDataProcessing # type: ignore
-from ml_backtest.strategies import InvertedHammer # type: ignore
-from ml_backtest.models import RandomForestRegressorTrainer # type: ignore
 import os
+
+# Import the changeable configuration
+import config
 
 app = Flask(__name__)
 CORS(app)
@@ -49,22 +54,15 @@ def convert_to_unix_conditional(time):
 
     for date_format in date_formats:
         try:
-            # Try to convert to datetime using the current format
             converted_time = pd.to_datetime(time, format=date_format)
-            # Convert to Unix time
             return int(converted_time.timestamp())
         except (ValueError, TypeError):
             continue
 
-    # If no conversion was successful, return the original time
     if isinstance(time, (int, np.integer)):
         return time
     else:
         raise ValueError(f"Time '{time}' does not match any provided date formats and is not in Unix format.")
-
-
-def get_true_keys(input_dict):
-    return [key for key, value in input_dict.items() if value]
 
 def convert_numpy_types(data):
     if isinstance(data, dict):
@@ -80,16 +78,17 @@ def convert_numpy_types(data):
     else:
         return data
 
-# Strategy Type Mapping
-strategy_mappings = {
-    'inverted-hammer': InvertedHammer,
-}
+@app.route('/get-selection-strats', methods=['GET'])
+def get_selection_strats():
+    return jsonify(config.get_selection_strats())
 
-# ML Type Mapping
-ml_mappings = {
-    'rfr': RandomForestRegressorTrainer,
-}
+@app.route('/get-selection-models', methods=['GET'])
+def get_selection_models():
+    return jsonify(config.get_selection_models())
 
+@app.route('/get-column-names', methods=['GET'])
+def get_column_names():
+    return jsonify(config.get_column_names())
 
 @app.route('/submit-form', methods=['POST'])
 def handle_form_submission():
@@ -102,9 +101,7 @@ def handle_form_submission():
     ml_type = request.form.get('mlType')
     columns_value = request.form.get('columns')
     filename = request.form.get('filename')
-    
-    # true_columns = get_true_keys(json.loads(form_columns))
-    # Convert columns_value (string) to actual list
+
     try:
         true_columns = json.loads(columns_value)
         if not isinstance(true_columns, list):
@@ -113,9 +110,9 @@ def handle_form_submission():
         print(f"Error parsing columns: {e}")
         return jsonify({"error": f"Error parsing columns: {e}"}), 400
     
-    strategy_class = strategy_mappings.get(strategy_type)
+    strategy_class = config.strategy_mappings.get(strategy_type)
     strategy_instance = strategy_class()    
-    ml_class = ml_mappings.get(ml_type)
+    ml_class = config.ml_mappings.get(ml_type)
 
     if file and secure_filename(file.filename).endswith('.csv'):
         try:
@@ -151,15 +148,12 @@ def handle_form_submission():
             analysis_chart_data2 = get_analysis_data(ml_df)
             trade_times_data2 = get_trade_times(ml_df)
             
-            # Example conversion to JSON-serializable format if needed
             trade_results1 = backtest.get_trades().to_dict(orient='records')
             trade_results2 = ml_backtest.get_trades().to_dict(orient='records')
 
-            # Ensure conversion if numpy types exist
             trade_results1 = convert_numpy_types(trade_results1)
             trade_results2 = convert_numpy_types(trade_results2)
             
-            # Save model to file
             model_filename = os.path.join(MODEL_DIR, filename)
             ml.dump_model(filename=model_filename)
             
@@ -187,7 +181,6 @@ def handle_form_submission():
 def download_model():
     filename = request.form.get('filename')
     if filename:
-        # Append the .joblib extension to the filename
         file_path = os.path.join(MODEL_DIR, f"{filename}.joblib")
         if os.path.exists(file_path):
             return send_file(file_path, as_attachment=True)
@@ -199,3 +192,7 @@ def download_model():
     
 if __name__ == '__main__':
     app.run(debug=True)
+
+##########################################################################
+##########################################################################
+##########################################################################

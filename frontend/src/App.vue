@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { ref, watch, onMounted } from 'vue'
 import { useForm } from 'vee-validate'
 import { toTypedSchema } from '@vee-validate/zod'
 import * as z from 'zod'
@@ -46,16 +46,63 @@ const apiUrl = import.meta.env.VITE_BACKEND_URL;
 
 const { toast } = useToast()
 
-const items = [
-  {
-    id: 'SMA_Diff',
-    label: 'SMA Diff',
-  },
-  {
-    id: 'EMA_Diff',
-    label: 'EMA Diff',
-  },
-] as const
+const items = ref([]);
+const fetchCheckColumns = async () => {
+  try {
+    const response = await fetch(`${apiUrl}/get-column-names`);
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    const data = await response.json();
+    items.value = data;
+  } catch (error) {
+    console.error('Error fetching columns:', error);
+    toast({
+      title: 'Error',
+      description: 'Failed to fetch the column names from the server.',
+    });
+  }
+}
+onMounted(fetchCheckColumns);
+
+const strats = ref([]);
+const fetchSelectItems = async () => {
+  try {
+    const response = await fetch(`${apiUrl}/get-selection-strats`);
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    const data = await response.json();
+    strats.value = data;
+  } catch (error) {
+    console.error('Error fetching select strats:', error);
+    toast({
+      title: 'Error',
+      description: 'Failed to fetch select strats from the server.',
+    });
+  }
+};
+onMounted(fetchSelectItems);
+
+const mls = ref([]);
+const fetchSelectModels = async () => {
+  try {
+    const response = await fetch(`${apiUrl}/get-selection-models`);
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    const data = await response.json();
+    mls.value = data;
+  } catch (error) {
+    console.error('Error fetching select mls:', error);
+    toast({
+      title: 'Error',
+      description: 'Failed to fetch select mls from the server.',
+    });
+  }
+};
+onMounted(fetchSelectModels);
+
 
 // Initialize empty data for charts
 const analysisChartData1 = ref([]);
@@ -293,8 +340,8 @@ watch(tradeResults2, (newVal) => {
                               </FormControl>
                               <SelectContent>
                                 <SelectGroup>
-                                  <SelectItem value="inverted-hammer">
-                                    Inverted Hammer
+                                  <SelectItem v-for="strat in strats" :key="strat.value" :value="strat.value">
+                                    {{ strat.label }}
                                   </SelectItem>
                                 </SelectGroup>
                               </SelectContent>
@@ -316,8 +363,8 @@ watch(tradeResults2, (newVal) => {
                               </FormControl>
                               <SelectContent>
                                 <SelectGroup>
-                                  <SelectItem value="rfr">
-                                    Random Forest Regression
+                                  <SelectItem v-for="ml in mls" :key="ml.value" :value="ml.value">
+                                    {{ ml.label }}
                                   </SelectItem>
                                 </SelectGroup>
                               </SelectContent>
