@@ -12,3 +12,7 @@ This is a pre-built application for the [ml-backtest](https://pypi.org/project/m
 ## Customizable
 Have your own strategy you want to use? Just create it and add it to the backend, you can find the 
 documentation [here](https://github.com/MaxwellMendenhall/ml_backtest). Do not change/edit the frontned unless something does not prove to your liking on looks. If you only wish to add custom strats only use the backend folder.
+
+## Demo
+https://github.com/MaxwellMendenhall/ml-backtest-app/assets/97015178/32510441-e3ea-49e7-a1b7-c5c5537c566a
+
